@@ -1,14 +1,11 @@
 import React from "react";
 import "../styles/SingleProduct.css";
-import { Container, Row, Col } from "react-bootstrap";
-import {BrowserRouter as Router, Link} from "react-router-dom";
-import { withRouter } from "react-router-dom";
+//import { withRouter } from "react-router-dom";
+import { Container, Row, Col, Button } from "react-bootstrap";
 
-const SingleProduct = () => {
+const SingleProductPage = () => {
   return (
     <>
-    <Router>
-    <Link to='/products/:id'>
       <Container>
         <div className="product-container">
           <Row>
@@ -27,14 +24,15 @@ const SingleProduct = () => {
                   laboris. 
                 </p>
               </Row>
+              <Row>
+              <Button variant="outline-info">Info</Button>{' '}
+              </Row>
             </Col>
           </Row>
         </div>
       </Container>
-      </Link>
-      </Router>
     </>
   );
 };
 
-export default withRouter(SingleProduct);
+export default SingleProductPage;
