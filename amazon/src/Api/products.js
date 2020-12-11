@@ -20,6 +20,7 @@ export const addProduct = async(body) =>{
         const url = "http://localhost:3001/products"
         const response = await fetch(url,{
             method:"Post",
+            body: JSON.stringify(body),
             headers:{
                 "Content-Type": "application/json",
             }
@@ -28,5 +29,41 @@ export const addProduct = async(body) =>{
     } catch (error) {
         console.log(error)
         
+    }
+}
+
+export const EditProduct = async(id,body)=>{
+    try {
+        const url = `http://localhost:3001/products/${id}`
+        const response = await fetch (url,{
+            method:"Put",
+            body:JSON.stringify(body),
+            headers:{
+              "Content-Type": "application/json",
+            }
+        })
+        return response
+
+        
+    } catch (error) {
+        console.log(error)
+    }
+
+
+}
+
+export const DeletePruduct = async (id) =>{
+
+    try {
+         const url = `http://localhost:3001/products/${id}`
+        const response = await fetch(url,{
+            method:"Delete",
+          
+        })
+        return await response.json()
+
+        
+    } catch (error) {
+        console.log(error)
     }
 }
