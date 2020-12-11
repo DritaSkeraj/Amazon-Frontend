@@ -1,16 +1,20 @@
 import React from 'react';
 import {Navbar, Nav, NavDropdown, Form, FormControl, Button} from 'react-bootstrap'
+import {BrowserRouter as Router, Link} from "react-router-dom"
 
 const NavBar = () => {
     return(
         <>
+        <Router>
         <Navbar bg="light" expand="lg">
         <Navbar.Brand href="#home">Amazon</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#link">Backoffice</Nav.Link>
+            <Link to="/backoffice">
+                <Nav.Link href="#link">Backoffice</Nav.Link>
+            </Link>
             <NavDropdown title="Categories" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
@@ -25,6 +29,7 @@ const NavBar = () => {
           </Form>
         </Navbar.Collapse>
       </Navbar>
+      </Router>
         </>
     );
 }

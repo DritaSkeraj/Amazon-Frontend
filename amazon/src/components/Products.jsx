@@ -19,12 +19,12 @@ class Products extends Component {
     render() {
         return (
             <div>
+
                 {this.state.products.map((product)=>{
                     return ( <SingleProduct obj={product} />)
                 })}
            
-            
-
+        
             </div>
         );
     }
