@@ -2,6 +2,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
 
+
 import NavBar from "./components/NavBar";
 import Products from "./components/Products";
 import MyFooter from "./components/MyFooter";
@@ -31,6 +32,7 @@ function App() {
         </Switch>
       </Router>
       <MyFooter />
+
     </div>
   );
 }

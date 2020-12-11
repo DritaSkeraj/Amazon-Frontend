@@ -4,6 +4,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import {BrowserRouter as Router, Link} from "react-router-dom";
 import { withRouter } from "react-router-dom";
 
+
 const SingleProduct = () => {
   return (
     <>
@@ -35,6 +36,7 @@ const SingleProduct = () => {
       </Router>
     </>
   );
+
 };
 
 export default withRouter(SingleProduct);
