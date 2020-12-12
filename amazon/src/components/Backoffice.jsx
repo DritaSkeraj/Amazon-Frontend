@@ -1,55 +1,56 @@
 import React from 'react'
 import { addProduct } from "../Api/products";
+import { UploadMyPhoto } from "../Api/upload";
 
-class  Backoffice extends React.Component{
+import { FaCamera,FaPhotoVideo,FaPaperPlane } from "react-icons/fa";
+
+class Backoffice extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
-      body: {
-        text: "",
-      },
-      fileSelected: null,
+      product: null,
+      post:null,
+     
+      file: null,
     };
-    this.fileRef = React.createRef();
+    
   }
   handleChange = (e) => {
     this.setState({
-      body: {
-        text: e.target.value,
+      product: {
+        ...this.state.product,
+        [e.target.id]: e.target.value,
       },
     });
   };
   handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(AddPost);
-    const response = await addProduct(this.state.body);
-    this.submitImg(response._id);
-    this.props.fetchData();
+    
+    const response = await addProduct(this.state.product);
+    console.log(response)
+    console.log(response.id)
+    let file = this.state.file;
+
+    let formData = new FormData();
+
+    formData.append("product", file);
+    this.setState({post:formData})
+    console.log(file)
+ 
+  
+   console.log(this.state.post)
+
+   await UploadMyPhoto(response.id, this.state.post);
+   
+   
   };
-  fileSelectedHandler = (e) => {
-    const data = new FormData();
-    data.append("product", e.target.files[0]);
-    this.setState({ fileSelected: data });
-  };
-  submitImg = async (id) => {
-    try {
-      const response = await fetch(
-        `http://localhost:3001/products/${id}/upload`,
-        {
-          method: "POST",
-          body: this.state.fileSelected,
-          headers: {
-            Authorization: `Bearer ${process.env.REACT_APP_TOKEN}`,
-          },
-        }
-      );
-      if (response.ok) {
-        alert("uploaded");
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  
+  handleFile(e) {
+    let file = e.target.files[0];
+
+    this.setState({ file });
+  }
+ 
 
 
   render(){
@@ -68,6 +69,7 @@ class  Backoffice extends React.Component{
               className="form-control"
               id="name"
               placeholder="Write here the product name"
+              onChange={this.handleChange}
             />
           </div>
 
@@ -78,6 +80,7 @@ class  Backoffice extends React.Component{
               id="description"
               rows="3"
               placeholder="Write here the product description"
+              onChange={this.handleChange}
             ></textarea>
           </div>
           <div className="form-group">
@@ -87,17 +90,10 @@ class  Backoffice extends React.Component{
               className="form-control"
               id="brand"
               placeholder="What company makes this product?"
+              onChange={this.handleChange}
             />
           </div>
-          <div className="form-group">
-            <label for="image">Product Image</label>
-            <input
-              type="url"
-              className="form-control"
-              id="imageUrl"
-              placeholder="Link to a good photo of the product"
-            />
-          </div>
+        
           <div className="form-group">
             <label for="price">Product price</label>
             <input
@@ -107,18 +103,46 @@ class  Backoffice extends React.Component{
               min="0"
               step="0.01"
               placeholder="How much does this product cost?"
+              onChange={this.handleChange}
             />
           </div>
-
-          <div className="form-group">
-            <button
-              className="btn btn-primary"
-              type="submit"
-              value="Submit Product"
-            >
-              Submit New Product
-            </button>
+            
+         
+              <div>
+              <form>
+          <div className="">
+            <label className="ml-2">Select File</label>
+            <input type="file" name="file" onChange={e => this.handleFile(e)} />
           </div>
+       
+        </form>
+              <button
+                style={{
+                  color: "#616160",
+                  backgroundColor: "transparent",
+                  borderColor: "transparent",
+                  padding: "2px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  marginRight: "10px",
+                  marginLeft: "2px",
+                }}
+                className="btn-upload ml-2 left-border"
+                onClick={this.handleSubmit}
+              >
+                <FaPaperPlane
+                  size="20"
+                  style={{
+                    width: "30px",
+                    marginRight: "4px",
+                    marginBottom: "2px",
+                  }}
+                />
+                Send
+              </button>
+            </div>
+         
         </form>
       </div>
     </div>

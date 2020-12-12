@@ -19,13 +19,14 @@ export const addProduct = async(body) =>{
     try {
         const url = "http://localhost:3001/products"
         const response = await fetch(url,{
-            method:"Post",
+            method:"POST",
             body: JSON.stringify(body),
             headers:{
                 "Content-Type": "application/json",
             }
         })
-        return response
+        const data = await response.json()
+        return data
     } catch (error) {
         console.log(error)
         
